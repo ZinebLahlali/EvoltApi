@@ -7,8 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
-
-
+use Symfony\Component\HttpFoundation\Response;
 
 class ReservationController extends Controller implements HasMiddleware
 {
@@ -71,5 +70,22 @@ class ReservationController extends Controller implements HasMiddleware
     {
         $reservation->delete();
         return ["message" => "La réservation a été supprimée."];
+    }
+
+
+    public function changeStatus(Request $request, $id)
+    {
+        $reservation = Reservation::where("id", $id)->where("status", "pending")->update([
+            'status' => $request->status
+        ]);
+
+        if(!$reservation){
+            return Response()->json([
+                "message" => "Reservation Not Found"
+            ]);
+        }
+        return Response()->json([
+            "message" => "Status a été changée"
+        ]);
     }
 }

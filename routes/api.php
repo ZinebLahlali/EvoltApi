@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 // })->middleware('auth:sanctum');
 
 Route::apiResource('reservations', ReservationController::class);
+Route::patch('/reservations/status/{id}', [ReservationController::class, 'changeStatus']);
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
