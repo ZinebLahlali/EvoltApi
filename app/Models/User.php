@@ -27,7 +27,7 @@ class User extends Authenticatable
         'role',
     ];
 
-    public function reservation(): HasMany {
+    public function reservations(): HasMany {
         return $this->hasMany(Reservation::class);
     }
 

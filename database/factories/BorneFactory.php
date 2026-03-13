@@ -19,10 +19,10 @@ class BorneFactory extends Factory
     public function definition(): array
     {
         return [
-            'borne_id' => Borne::factory(),
-            'user_id' => User::factory(),
-            'date' => fake()->date(),
-            'heure' => fake()->time('H:i:s'),
+            'name' => fake()->company() . ' Station',
+            'latitude' => fake()->latitude(27, 36),
+            'longitude' => fake()->longitude(-13, -1),
+            'connector_type' => fake()->randomElement(['Type2', 'CCS', 'CHAdeMO']),
         ];
     }
 }
