@@ -5,8 +5,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\User;
 
-class admin
+class AdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -14,7 +15,15 @@ class admin
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
-    {
+    {   $user = auth()->user();
+        
+       if(!$user || $user->role !== 'admin'){
+        return response()->json([
+            'message' => 'You are not an admin'
+        ], 403);
+       }
+
+
         return $next($request);
     }
 }
